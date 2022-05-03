@@ -1,0 +1,155 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="formacionjgg.catalogo_list">
+      <field name="name">formacionjgg list</field>
+      <field name="model">formacionjgg.catalogo</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="duration"/>
+          <field name="name_trainer"/>
+          <field name="start_date"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="formacionjgg.catalogo_calendar">
+      <field name="name">formacionjgg calendar</field>
+      <field name="model">formacionjgg.catalogo</field>
+      <field name="arch" type="xml">
+        <calendar string="Event calendar" date_start="start_date" color="name" mode="week">
+          <field name="name"/>
+          <field name="description"/>
+        </calendar>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="formacionjgg.catalogo_search_view">
+      <field name="model">formacionjgg.catalogo</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="start_date"/>
+          <field name="name_trainer"/>
+          <field name="duration"/>
+          <group string="Group by">
+            <filter name="group_by_duration" string="duracion" context="{'group by':'duration'}"/>
+            <filter name="group_by_name_trainer" string="formadores" context="{'group by':'name_trainer'}"/>
+            <filter name="group_by_start_date" string="fecha" context="{'group by':'start_date'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="formacionjgg.datoproveedores_list">
+      <field name="name">formacionjgg list2</field>
+      <field name="model">formacionjgg.datoproveedores</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_company"/>
+          <field name="name_supplier"/>
+          <field name="name_trainer"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="formacionjgg.acciones_list">
+      <field name="name">formacionjgg list3</field>
+      <field name="model">formacionjgg.acciones</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_action"/>
+          <field name="name_course"/>
+          <field name="name_trainer"/>
+          <field name="names_employees"/>
+          <field name="number_sessions"/>
+        </tree>
+      </field>
+    </record>
+
+   <record model="ir.ui.view" id="formacionjgg.acciones_form">
+      <field name="name">formacionjgg form</field>
+      <field name="model">formacionjgg.acciones</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="name_action"/>
+                <field name="name_course"/>
+              </group>
+              <group>
+                <field name="name_trainer"/>
+                <field name="number_sessions"/>
+              </group>
+            </group>
+            <group>
+              <field name="names_employees"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="formacionjgg.datosempleados_list">
+      <field name="name">formacionjgg list4</field>
+      <field name="model">formacionjgg.datosempleados</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_trainer"/>
+          <field name="specialty"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="formacionjgg.catalogo_action_window">
+      <field name="name">Formacion</field>
+      <field name="res_model">formacionjgg.catalogo</field>
+      <field name="view_mode">tree,form,calendar</field>
+      <field name="context">{'search_default_group_by_value':True,'search_default_group_by_value2':True,'search_default_group_by_value3':True}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="formacionjgg.datoproveedores_action_window">
+      <field name="name">Formadores</field>
+      <field name="res_model">formacionjgg.datoproveedores</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="formacionjgg.acciones_action_window">
+      <field name="name">Acciones</field>
+      <field name="res_model">formacionjgg.acciones</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="formacionjgg.datosempleados_action_window">
+      <field name="name">Especialidades</field>
+      <field name="res_model">formacionjgg.datosempleados</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Formacion" id="formacionjgg.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Cursos" id="formacionjgg.menu_1" parent="formacionjgg.menu_root"/>
+    <menuitem name="Proveedores" id="formacionjgg.menu_2" parent="formacionjgg.menu_root"/>
+    <menuitem name="Acciones" id="formacionjgg.menu_3" parent="formacionjgg.menu_root"/>
+    <menuitem name="Formadores" id="formacionjgg.menu_4" parent="formacionjgg.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Datos de los cursos" id="formacionjgg.menu_1_list" parent="formacionjgg.menu_1"
+              action="formacionjgg.catalogo_action_window"/>
+    <menuitem name="Datos de los proveedores" id="formacionjgg.menu_2_list" parent="formacionjgg.menu_2"
+              action="formacionjgg.datoproveedores_action_window"/>
+    <menuitem name="Datos de las acciones" id="formacionjgg.menu_3_list" parent="formacionjgg.menu_3"
+              action="formacionjgg.acciones_action_window"/>
+    <menuitem name="Especialidad de los formadores" id="formacionjgg.menu_4_list" parent="formacionjgg.menu_4"
+              action="formacionjgg.datosempleados_action_window"/>
+
+  </data>
+</odoo>
